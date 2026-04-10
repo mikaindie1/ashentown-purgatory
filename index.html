@@ -125,9 +125,32 @@
         .support-me:hover i { color: #fff; } /* Tim trắng khi hover nút đỏ */
 
         /* SECTIONS */
-        section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 100px 10%; position: relative; }
-        section:not(#top) { background: rgba(5, 5, 5, 0.95); z-index: 100; box-shadow: 0 -50px 100px #000; }
-        h1 { font-family: 'Orbitron'; font-size: 50px; margin-bottom: 30px; border-bottom: 2px solid var(--primary-red); padding-bottom: 10px; }
+        section { 
+    min-height: 100vh; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    /* Đổi center thành flex-start để bám lề trái */
+    align-items: flex-start; 
+    padding: 100px 10%; 
+    position: relative; 
+}
+
+section:not(#top) { 
+    background: rgba(5, 5, 5, 0.95); 
+    z-index: 100; 
+    box-shadow: 0 -50px 100px #000; 
+}
+
+h1 { 
+    font-family: 'Orbitron'; 
+    font-size: 50px; 
+    margin-bottom: 30px; 
+    border-bottom: 2px solid var(--primary-red); 
+    padding-bottom: 10px;
+    /* Giúp thanh gạch chân màu đỏ không bị kéo dài hết màn hình */
+    width: fit-content; 
+}
 
         .video-container { width: 100%; max-width: 900px; aspect-ratio: 16/9; border: 1px solid var(--dark-red); background: #000; }
         .video-container iframe { width: 100%; height: 100%; border: none; }
