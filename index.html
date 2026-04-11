@@ -389,5 +389,18 @@ window.addEventListener("scroll", () => {
 });
 </script>
 
+// Đóng khi bấm phím Escape
+window.addEventListener('keydown', (e) => {
+    if (e.key === "Escape") closePopup();
+});
+
+// Đóng khi click vào vùng overlay bên ngoài popup-box
+window.addEventListener('click', (e) => {
+    const popup = document.getElementById("popup");
+    if (e.target === popup) {
+        closePopup();
+    }
+});	
+	
 </body>
 </html>
