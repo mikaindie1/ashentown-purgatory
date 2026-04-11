@@ -179,10 +179,43 @@
             .popup-box { flex-direction: column; overflow-y: auto; }
             .popup-left, .popup-right { width: 100%; }
         }
+
+/* Hiệu ứng nhịp thở cho thông tin phát hành */
+.release-info span:first-child {
+    animation: pulse-text 3s infinite ease-in-out;
+    display: inline-block;
+}
+
+@keyframes pulse-text {
+    0%, 100% { opacity: 0.6; transform: scale(1); filter: blur(0px); }
+    50% { opacity: 0.2; transform: scale(0.98); filter: blur(1px); }
+}
+
+/* Các dòng tọa độ quét ngầm ở góc màn hình */
+.system-logs {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    font-family: 'Special Elite', monospace;
+    font-size: 10px;
+    color: var(--primary-red);
+    opacity: 0.4;
+    z-index: 1000;
+    pointer-events: none;
+    text-transform: none;
+}
+        
     </style>
 </head>
 <body>
 
+<div class="system-logs" id="sysLogs">
+    SCANNING AREA: KISARAGI_SECTOR_04...<br>
+    COORDINATES: 35.6895° N, 139.6917° E<br>
+    THREAT_LEVEL: <span style="animation: flicker 0.5s infinite">EXTREME</span>
+</div>
+    
+    
 <div class="static-bg" id="bgImg"></div>
 <div class="overlay"></div>
 
