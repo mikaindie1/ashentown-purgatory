@@ -48,10 +48,10 @@
             opacity: 0;
             z-index: 11001;
             pointer-events: none;
-            animation: flicker-screen 0.12s infinite;
+            animation: flicker 0.12s infinite;
         }
 
-        @keyframes flicker-screen {
+        @keyframes flicker {
             0% { opacity: 0.27; } 5% { opacity: 0.35; } 10% { opacity: 0.24; }
             100% { opacity: 0.24; }
         }
@@ -80,14 +80,6 @@
             z-index: -1;
         }
 
-        /* SYSTEM LOGS (GÓC TRÁI) */
-        .system-logs {
-            position: fixed; bottom: 20px; left: 20px;
-            font-family: 'Special Elite', monospace; font-size: 10px;
-            color: var(--primary-red); opacity: 0.5; z-index: 2000;
-            pointer-events: none; text-transform: none; line-height: 1.4;
-        }
-
         /* MENU PHẢI */
         header { position: fixed; top: 50px; right: 40px; z-index: 2000; }
         .inventory-menu { display: flex; flex-direction: column; align-items: flex-end; gap: 25px; }
@@ -106,13 +98,20 @@
         }
         .inv-item:hover { color: var(--primary-red); transform: translateX(-10px); }
 
-        /* HERO LOGO */
+        /* HERO & LOGO */
         .hero-content { position: fixed; top: 50%; left: 8%; transform: translateY(-50%); z-index: 10; }
         .chalk-logo {
             font-family: 'Special Elite', cursive; font-size: clamp(60px, 10vw, 120px);
-            color: #fff; line-height: 0.8; position: relative;
+            color: #fff; line-height: 0.8; position: relative; animation: flicker-text 4s infinite;
             text-shadow: 2px 0 1px rgba(255,0,0,0.5), -2px 0 1px rgba(0,255,255,0.5);
         }
+        .chalk-logo::before { 
+            content: "ASHEN TOWN"; position: absolute; top: 0; left: 0; 
+            color: var(--primary-red); z-index: -1; animation: glitch-anim 2s infinite alternate-reverse; opacity: 0.7; 
+        }
+
+        @keyframes flicker-text { 0%, 18%, 20%, 50%, 100% { opacity: 1; } 19%, 22% { opacity: 0.6; } }
+        @keyframes glitch-anim { 0% { clip: rect(20px, 999px, 40px, 0); transform: skew(0.5deg); } 100% { clip: rect(50px, 999px, 70px, 0); } }
 
         /* RELEASE INFO HIỆU ỨNG THỞ */
         .release-info span:first-child {
@@ -120,25 +119,40 @@
             display: inline-block;
         }
         @keyframes pulse-text {
-            0%, 100% { opacity: 0.6; filter: blur(0px); }
-            50% { opacity: 0.2; filter: blur(1px); }
+            0%, 100% { opacity: 0.6; transform: scale(1); filter: blur(0px); }
+            50% { opacity: 0.2; transform: scale(0.98); filter: blur(1px); }
         }
 
-        /* NÚT SUPPORT & SOCIAL */
+        /* NÚT DOWNLOAD */
+        .btn-disabled {
+            display: inline-block; margin-top: 15px; padding: 10px 25px;
+            background: rgba(255, 255, 255, 0.05); color: rgba(255, 255, 255, 0.2);
+            border: 1px dashed rgba(255, 255, 255, 0.2); font-family: 'Orbitron', sans-serif;
+            font-size: 13px; letter-spacing: 2px; text-decoration: none; cursor: not-allowed; transition: 0.3s;
+        }
+        .btn-disabled::after { content: " [LOCKED]"; font-size: 10px; color: var(--primary-red); margin-left: 8px; }
+
+        /* ACTION STACK */
         .action-stack {
             position: fixed; bottom: 50px; right: 40px;
             display: flex; flex-direction: column; align-items: flex-end; gap: 20px; z-index: 2000;
         }
+        .social-icons a { color: #fff; font-size: 20px; transition: 0.2s; margin-left: 15px;}
+        .social-icons a:hover { color: var(--primary-red); text-shadow: var(--glow); }
+
         .support-me {
             background: #fff; color: #000; padding: 12px 30px; text-decoration: none;
             font-weight: 700; letter-spacing: 2px; border: 1px solid #fff; transition: 0.3s;
             animation: support-pulse 2s infinite;
         }
+        .support-me i { color: var(--primary-red); margin-right: 8px; }
+
         @keyframes support-pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
-            70% { box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); transform: scale(1); }
+            70% { box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0); transform: scale(1.05); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); transform: scale(1); }
         }
+
         .support-me:hover { background: var(--primary-red); color: #fff; border-color: var(--primary-red); animation: none; transform: scale(1.1); }
 
         /* SECTIONS */
@@ -147,20 +161,28 @@
             justify-content: center; align-items: flex-start; padding: 100px 10%; position: relative; 
         }
         section:not(#top) { background: rgba(5, 5, 5, 0.95); z-index: 100; box-shadow: 0 -50px 100px #000; }
-        h1 { font-family: 'Orbitron'; font-size: 50px; border-bottom: 2px solid var(--primary-red); padding-bottom: 10px; margin-bottom: 30px;}
+
+        h1 { 
+            font-family: 'Orbitron'; font-size: 50px; margin-bottom: 30px; 
+            border-bottom: 2px solid var(--primary-red); padding-bottom: 10px; width: fit-content; 
+        }
+
+        .video-container { width: 100%; max-width: 900px; aspect-ratio: 16/9; border: 1px solid var(--dark-red); background: #000; }
+        .video-container iframe { width: 100%; height: 100%; border: none; }
 
         .char-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; width: 100%; max-width: 1000px; }
         .char-card { height: 400px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; cursor: pointer; transition: 0.5s; position: relative; }
         .char-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.5s; }
+        .char-card:hover { border-color: var(--primary-red); box-shadow: var(--glow); }
         .char-card:hover img { opacity: 1; transform: scale(1.05); }
 
-        /* POPUP MILITARY STYLE */
+        /* NÂNG CẤP POPUP STYLE MILITARY */
         .popup { position: fixed; inset: 0; background: rgba(0,0,0,0.98); display: none; z-index: 10000; padding: 50px; backdrop-filter: blur(10px); }
         .popup-box { display: flex; width: 100%; height: 100%; border: 1px solid var(--dark-red); background: #000; position: relative; }
         .popup-left { width: 45%; border-right: 1px solid var(--dark-red); position: relative; }
         .popup-left img { width: 100%; height: 100%; object-fit: cover; }
         .popup-right { width: 55%; padding: 60px; display: flex; flex-direction: column; justify-content: center; }
-        .close-btn { position: absolute; top: 20px; right: 30px; font-size: 40px; color: var(--primary-red); cursor: pointer; z-index: 10; }
+        .close-btn { position: absolute; top: 20px; right: 30px; font-size: 40px; color: var(--primary-red); cursor: pointer; z-index: 110; }
 
         @media (max-width: 768px) {
             .popup-box { flex-direction: column; overflow-y: auto; }
@@ -173,31 +195,37 @@
 <div class="static-bg" id="bgImg"></div>
 <div class="overlay"></div>
 
-<div class="system-logs" id="sysLogs">
-    SCANNING_AREA: KISARAGI_SECTOR_04...<br>
-    COORDINATES: 35.6895° N, 139.6917° E<br>
-    THREAT_LEVEL: <span style="color:white; animation: flicker-screen 0.2s infinite">EXTREME</span>
-</div>
-
 <header>
     <nav class="inventory-menu">
         <a href="#top" class="inv-item">TOP <span class="nav-dot"></span></a>
         <a href="#about" class="inv-item">ABOUT <span class="nav-dot"></span></a>
+        <a href="#story" class="inv-item">STORY <span class="nav-dot"></span></a>
         <a href="#characters" class="inv-item">CHARACTERS <span class="nav-dot"></span></a>
         <a href="#trailers" class="inv-item">TRAILERS <span class="nav-dot"></span></a>
+        <a href="#contact" class="inv-item">CONTACT <span class="nav-dot"></span></a>
     </nav>
 </header>
 
 <div class="hero-content">
     <div class="chalk-logo">ASHEN TOWN</div><br>
     <div class="sub-logo" style="font-family:'Special Elite'; font-size: 30px; letter-spacing: 12px; border: 1px solid #444; padding: 5px 20px; background: rgba(0,0,0,0.6); display: inline-block;">PURGATORY</div>
-    <div class="release-info" style="margin-top:20px; font-family:'Special Elite';">
-        <span style="opacity: 0.5; font-size: 14px;">PROTOCOL: EARLY_ACCESS</span><br>
-        <span style="color: var(--primary-red); font-size: 22px;">DEPLOYMENT: ??/??/2030</span>
+    
+    <div class="release-info" style="margin-top:20px;">
+        <span style="opacity: 0.5; font-size: 14px; letter-spacing: 2px;">PROTOCOL: EARLY_ACCESS</span><br>
+        <span style="color: var(--primary-red); font-size: 22px; text-shadow: 0 0 10px var(--primary-red);">DEPLOYMENT: ??/??/2030</span>
+        <br>
+        <a href="javascript:void(0)" class="btn-disabled"><i class="fa-solid fa-download"></i> DOWNLOAD NOW</a>
+        <p style="font-size: 10px; color: #444; margin-top: 8px; text-transform: none; letter-spacing: 1px;">* Access restricted to authorized personnel.</p>
     </div>
 </div>
 
 <div class="action-stack">
+    <div class="social-icons">
+        <span style="font-family: 'Special Elite'; font-size: 12px; color: #fff;">FOLLOW :</span>
+        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+    </div>
     <a href="https://ko-fi.com/mikaindie1" target="_blank" class="support-me"><i class="fa-solid fa-heart"></i> SUPPORT ME</a>
 </div>
 
@@ -205,21 +233,25 @@
 
 <section id="about">
     <h1>ABOUT</h1>
-    <p style="font-size: 1.2rem; line-height: 1.8; max-width: 800px;">
-        Kisaragi Town - Một địa danh đã bị xóa sổ khỏi bản đồ. Bạn vào vai <strong>Reika</strong>, một đặc vụ thuộc tổ chức chống khủng bố sinh học, thâm nhập vào vùng đất chết để tìm kiếm đứa trẻ mất tích và phơi bày sự thật kinh hoàng sau những nghi lễ cổ xưa.
-    </p>
+    <p style="margin-bottom: 25px; line-height: 1.6; font-size: 1.1rem;"><strong>Enter Ashen Town: Purgatory</strong><br>Where ancient myths collide with visceral survival horror.</p>
+    <p>Play as <strong>Reika</strong>, a bio-terrorism operative thrust into a high-stakes investigation.</p>
+</section>
+
+<section id="story">
+    <h1>STORY</h1>
+    <p style="line-height: 1.8;">A series of chilling disappearances has plagued the remote town of Kisaragi, Japan. As Reika, you must navigate a web of terrifying conspiracies to rescue a missing child and expose the darkness before it consumes the world.</p>
 </section>
 
 <section id="characters" style="align-items: center;">
     <h1>CHARACTERS</h1>
     <div class="char-row">
-        <div class="char-card" onclick="openCharacter('Character_01.jpg','REIKA','Đặc vụ cấp cao của B.S.A. Chuyên gia về vũ khí hạng nhẹ và phân tích sinh học. Cô đang che giấu một bí mật về quá khứ tại Kisaragi.')">
+        <div class="char-card" onclick="openCharacter('Character_01.jpg','REIKA','Bio-terrorism operative. Đặc vụ thuộc lực lượng phản ứng nhanh. Cô thâm nhập Kisaragi với một mục tiêu cá nhân bí mật.')">
             <img src="Character_01.jpg">
         </div>
-        <div class="char-card" onclick="openCharacter('Character_02.jpg','???','Dữ liệu bị lỗi. Đối tượng không xác định được tìm thấy trong hầm ngầm khu vực phía Đông.')">
+        <div class="char-card" onclick="openCharacter('Character_02.jpg','UNKNOWN','Dữ liệu nhân vật bị mã hóa. Đối tượng nguy hiểm cấp độ S.')">
             <img src="Character_02.jpg">
         </div>
-        <div class="char-card" onclick="openCharacter('Character_03.jpg','???','Cảnh báo: Tế bào bị biến đổi vượt mức kiểm soát. Đã mất tín hiệu sống.')">
+        <div class="char-card" onclick="openCharacter('Character_03.jpg','UNKNOWN','Mẫu vật sinh học bị biến đổi mạnh. Không còn dấu hiệu con người.')">
             <img src="Character_03.jpg">
         </div>
     </div>
@@ -232,6 +264,11 @@
     </div>
 </section>
 
+<section id="contact" style="align-items: center;">
+    <h1>CONTACT</h1>
+    <p style="font-family: 'Special Elite'; font-size: 20px;">EMAIL: <a href="mailto:mikaindie1@gmail.com" style="color: var(--primary-red); text-decoration: none;">mikaindie1@gmail.com</a></p>
+</section>
+
 <div id="popup" class="popup">
     <div class="popup-box">
         <span class="close-btn" onclick="closePopup()">×</span>
@@ -242,31 +279,23 @@
         <div class="popup-right">
             <div style="border-left: 4px solid var(--primary-red); padding-left: 20px;">
                 <span style="font-size: 12px; color: var(--primary-red); letter-spacing: 5px;">PERSONNEL FILE // TOP SECRET</span>
-                <h2 id="p-name" style="font-family: 'Orbitron'; font-size: 45px; color: #fff; margin: 10px 0;"></h2>
+                <h2 id="p-name" style="font-family: 'Orbitron'; font-size: 40px; color: #fff; margin: 10px 0;"></h2>
             </div>
-            <div style="margin-top: 30px; font-family: 'Special Elite'; font-size: 15px; color: #bbb; border: 1px solid #222; padding: 20px; background: rgba(255,255,255,0.02); min-height: 150px;">
+            <div style="margin-top: 30px; font-family: 'Special Elite'; font-size: 16px; color: #ccc; border: 1px solid #222; padding: 20px; background: rgba(255,255,255,0.02); min-height: 120px;">
                 <p id="p-desc"></p>
             </div>
-            <div style="margin-top: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 12px; opacity: 0.5; font-family: 'Orbitron';">
-                <div>STATUS: <span style="color: #0f0;">ACTIVE</span></div>
+            <div style="margin-top: 25px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 12px; opacity: 0.5; font-family: 'Orbitron';">
+                <div>STATUS: ACTIVE</div>
                 <div>ID: AT-0942</div>
                 <div>MENTAL: STABLE</div>
-                <div>CLEARANCE: LEVEL 4</div>
+                <div>CLEARANCE: LV4</div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    // 1. Tọa độ nhảy số ngầm
-    const logElement = document.getElementById("sysLogs");
-    setInterval(() => {
-        const lat = (35.6895 + (Math.random() * 0.005)).toFixed(4);
-        const lng = (139.6917 + (Math.random() * 0.005)).toFixed(4);
-        logElement.innerHTML = `SCANNING_AREA: KISARAGI_SECTOR_04...<br>COORDINATES: ${lat}° N, ${lng}° E<br>THREAT_LEVEL: <span style="color:white; animation: flicker-screen 0.2s infinite">EXTREME</span>`;
-    }, 2000);
-
-    // 2. Hiệu ứng Typewriter cho Popup
+    // HIỆU ỨNG ĐÁNH MÁY (TYPEWRITER)
     let typeIndex = 0;
     let typeText = "";
     function typeWriter() {
@@ -282,7 +311,6 @@
         document.getElementById("p-img").src = img;
         document.getElementById("p-name").innerText = name;
         
-        // Reset và chạy hiệu ứng đánh máy
         document.getElementById("p-desc").innerText = "";
         typeText = desc;
         typeIndex = 0;
@@ -293,19 +321,18 @@
         document.getElementById("popup").style.display = "none";
     }
 
-    // 3. Hiệu ứng Scroll
+    // HIỆU ỨNG SCROLL CHO BACKGROUND
     const bgImg = document.getElementById("bgImg");
     window.addEventListener("scroll", () => {
         let scroll = window.pageYOffset;
         bgImg.style.transform = `translateY(${scroll * 0.1}px)`;
-        bgImg.style.filter = scroll > 400 ? "brightness(0.4) contrast(1.2)" : "brightness(0.7) contrast(1.1)";
+        bgImg.style.filter = scroll > 400 ? "brightness(0.5) contrast(1.1)" : "brightness(0.7) contrast(1.1)";
     });
 
-    // 4. Đóng Popup bằng phím Esc và Click ngoài
+    // ĐÓNG POPUP
     window.addEventListener('keydown', (e) => { if (e.key === "Escape") closePopup(); });
     window.addEventListener('click', (e) => {
-        const popup = document.getElementById("popup");
-        if (e.target === popup) closePopup();
+        if (e.target === document.getElementById("popup")) closePopup();
     });
 </script>
 
