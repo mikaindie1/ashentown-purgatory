@@ -173,6 +173,74 @@ h1 {
             .popup-box { flex-direction: column; overflow-y: auto; }
             .popup-left, .popup-right { width: 100%; }
         }
+
+/* Container chứa hiệu ứng CRT toàn màn hình */
+body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    /* Tạo các đường kẻ ngang (Scanlines) */
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    z-index: 5000; /* Đảm bảo nằm trên các layer khác nhưng dưới menu nếu cần */
+    background-size: 100% 3px, 3px 100%;
+    pointer-events: none; /* Quan trọng: Để vẫn có thể click vào các nút bên dưới */
+}
+
+/* Hiệu ứng rung nhẹ và quét sáng (Screen Scan) */
+body::after {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(18, 16, 16, 0.03);
+    opacity: 0;
+    z-index: 5001;
+    pointer-events: none;
+    animation: flicker 0.12s infinite;
+}
+
+/* Định nghĩa hiệu ứng Flicker (Chớp nháy nhẹ) */
+@keyframes flicker {
+    0% { opacity: 0.27; }
+    5% { opacity: 0.35; }
+    10% { opacity: 0.24; }
+    15% { opacity: 0.3; }
+    20% { opacity: 0.28; }
+    25% { opacity: 0.33; }
+    30% { opacity: 0.25; }
+    35% { opacity: 0.38; }
+    40% { opacity: 0.22; }
+    45% { opacity: 0.39; }
+    50% { opacity: 0.25; }
+    55% { opacity: 0.3; }
+    60% { opacity: 0.24; }
+    65% { opacity: 0.35; }
+    70% { opacity: 0.27; }
+    75% { opacity: 0.3; }
+    80% { opacity: 0.25; }
+    85% { opacity: 0.38; }
+    90% { opacity: 0.22; }
+    95% { opacity: 0.39; }
+    100% { opacity: 0.24; }
+}
+
+/* Hiệu ứng cong màn hình (tùy chọn - Vignette mạnh hơn) */
+.overlay {
+    background: radial-gradient(circle, 
+        transparent 50%, 
+        rgba(0, 0, 0, 0.4) 110%, 
+        rgba(0, 0, 0, 0.9) 140%);
+}
+
+		
     </style>
 </head>
 
