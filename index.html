@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,11 +26,17 @@
             text-transform: uppercase;
         }
 
-        /* Đảm bảo font tiếng Việt dễ đọc hơn */
-        html[lang="vi"] body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; }
+        /* Tối ưu hiển thị font */
         h1, .chalk-logo, .inv-item, .skill-tag, .stat-item { font-family: 'Orbitron', sans-serif !important; }
+        
+        /* Chỉnh riêng cho nội dung mô tả để dễ đọc tiếng Việt */
+        #about-content, #story-content, #p-desc { 
+            text-transform: none; 
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 18px;
+        }
 
-        /* HIỆU ỨNG CRT TOÀN MÀN HÌNH */
+        /* HIỆU ỨNG CRT */
         body::before {
             content: " "; display: block; position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
@@ -39,137 +45,92 @@
             z-index: 11000; background-size: 100% 3px, 3px 100%; pointer-events: none;
         }
 
-        body::after {
-            content: " "; display: block; position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: rgba(18, 16, 16, 0.03); opacity: 0;
-            z-index: 11001; pointer-events: none; animation: flicker 0.12s infinite;
-        }
-
-        @keyframes flicker { 0% { opacity: 0.27; } 5% { opacity: 0.35; } 10% { opacity: 0.24; } 100% { opacity: 0.24; } }
-
-        /* HÌNH NỀN */
+        /* BACKGROUND */
         .static-bg {
             position: fixed; top: -5%; left: -5%; width: 110%; height: 110%;
             background: url('mikaindie.jpg') no-repeat center center;
-            background-size: cover; z-index: -2; filter: brightness(0.7) contrast(1.1); 
-            animation: breathing 20s ease-in-out infinite; transition: filter 0.5s ease;
+            background-size: cover; z-index: -2; filter: brightness(0.6) contrast(1.1); 
+            animation: breathing 20s ease-in-out infinite;
         }
-
         @keyframes breathing { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .overlay { position: fixed; inset: 0; background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.4) 110%, rgba(0,0,0,0.9) 140%); z-index: -1; }
+        .overlay { position: fixed; inset: 0; background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.8) 120%); z-index: -1; }
 
-        /* MENU PHẢI */
+        /* MENU */
         header { position: fixed; top: 50px; right: 40px; z-index: 2000; }
-        .inventory-menu { display: flex; flex-direction: column; align-items: flex-end; gap: 20px; }
+        .inventory-menu { display: flex; flex-direction: column; align-items: flex-end; gap: 15px; }
         .inv-item {
             color: #fff; text-decoration: none; font-size: 14px; font-weight: 700; 
             letter-spacing: 3px; transition: 0.4s; display: flex; align-items: center; gap: 15px;
         }
-        .nav-dot { width: 8px; height: 8px; background-color: var(--primary-red); border-radius: 50%; box-shadow: var(--glow); animation: pulse-red 1.5s infinite ease-in-out; }
-        @keyframes pulse-red { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.4; } }
+        .nav-dot { width: 8px; height: 8px; background-color: var(--primary-red); border-radius: 50%; box-shadow: var(--glow); }
         .inv-item:hover { color: var(--primary-red); transform: translateX(-10px); }
 
-        /* NGÔN NGỮ */
         .lang-switch { margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; }
         .lang-btn { background: none; border: none; color: #555; cursor: pointer; font-family: 'Orbitron'; font-size: 12px; transition: 0.3s; }
         .lang-btn.active { color: var(--primary-red); text-shadow: var(--glow); }
 
-        /* HERO & LOGO */
+        /* HERO */
         .hero-content { position: fixed; top: 50%; left: 8%; transform: translateY(-50%); z-index: 10; }
         .chalk-logo {
-            font-family: 'Special Elite', cursive !important; font-size: clamp(60px, 10vw, 120px);
-            color: #fff; line-height: 0.8; position: relative; animation: flicker-text 4s infinite;
-            text-shadow: 2px 0 1px rgba(255,0,0,0.5), -2px 0 1px rgba(0,255,255,0.5);
-        }
-        .chalk-logo::before { 
-            content: "ASHEN TOWN"; position: absolute; top: 0; left: 0; 
-            color: var(--primary-red); z-index: -1; animation: glitch-anim 2s infinite alternate-reverse; opacity: 0.7; 
+            font-family: 'Special Elite', cursive !important; font-size: clamp(50px, 8vw, 100px);
+            color: #fff; line-height: 0.8; position: relative;
+            text-shadow: 2px 0 1px rgba(255,0,0,0.5);
         }
 
-        @keyframes flicker-text { 0%, 18%, 20%, 50%, 100% { opacity: 1; } 19%, 22% { opacity: 0.6; } }
-        @keyframes glitch-anim { 0% { clip: rect(20px, 999px, 40px, 0); transform: skew(0.5deg); } 100% { clip: rect(50px, 999px, 70px, 0); } }
-
-        /* RELEASE INFO */
-        .release-info span:first-child { animation: pulse-text 3s infinite ease-in-out; display: inline-block; }
-        @keyframes pulse-text { 0%, 100% { opacity: 0.6; transform: scale(1); filter: blur(0px); } 50% { opacity: 0.2; transform: scale(0.98); filter: blur(1px); } }
-
-        .btn-disabled {
-            display: inline-block; margin-top: 15px; padding: 10px 25px;
-            background: rgba(255, 255, 255, 0.05); color: rgba(255, 255, 255, 0.2);
-            border: 1px dashed rgba(255, 255, 255, 0.2); font-size: 13px; letter-spacing: 2px; text-decoration: none; cursor: not-allowed;
-        }
-
-        /* ACTION STACK */
+        /* SUPPORT BUTTON & SOCIAL */
         .action-stack { position: fixed; bottom: 50px; right: 40px; display: flex; flex-direction: column; align-items: flex-end; gap: 20px; z-index: 2000; }
-        .social-icons a { color: #fff; font-size: 20px; transition: 0.2s; margin-left: 15px;}
-        .social-icons a:hover { color: var(--primary-red); text-shadow: var(--glow); }
-
-        /* NÚT SUPPORT ME */
         .support-me {
-            background: #fff; 
-            color: #000; 
-            padding: 12px 30px; 
-            text-decoration: none;
-            font-weight: 700; 
-            letter-spacing: 2px; 
-            border: 1px solid #fff; 
-            transition: 0.3s; /* Thêm transition để mượt mà khi hover */
-            animation: support-pulse 2s infinite;
-            display: inline-block;
+            background: #fff; color: #000; padding: 12px 30px; text-decoration: none;
+            font-weight: 700; letter-spacing: 2px; border: 1px solid #fff; 
+            transition: 0.3s; animation: support-pulse 2s infinite; display: inline-block;
         }
+        .support-me i { color: var(--primary-red); margin-right: 8px; transition: 0.3s; }
+        .support-me:hover { background: var(--primary-red); color: #fff; border-color: var(--primary-red); animation: none; transform: scale(1.1); }
+        .support-me:hover i { color: #fff; }
 
-        /* Hiệu ứng cho icon trái tim */
-        .support-me i { 
-            color: var(--primary-red); 
-            margin-right: 8px; 
-            transition: 0.3s; 
-        }
-
-        @keyframes support-pulse { 
-            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); transform: scale(1); } 
-            70% { box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0); transform: scale(1.05); } 
-            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); transform: scale(1); } 
-        }
-
-        /* KHI RÊ CHUỘT VÀO (HOVER) */
-        .support-me:hover { 
-            background: var(--primary-red); 
-            color: #fff; 
-            border-color: var(--primary-red); 
-            animation: none; /* Dừng hiệu ứng đập để người dùng dễ click */
-            transform: scale(1.1); 
-        }
-
-        /* ÉP TRÁI TIM ĐỔI SANG MÀU TRẮNG KHI HOVER */
-        .support-me:hover i { 
-            color: #fff; 
-        }
+        @keyframes support-pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); } 70% { box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); } }
 
         /* SECTIONS */
         section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 100px 10%; position: relative; }
-        section:not(#top) { background: rgba(5, 5, 5, 0.95); z-index: 100; box-shadow: 0 -50px 100px #000; }
-        h1 { font-size: 50px; margin-bottom: 30px; border-bottom: 2px solid var(--primary-red); padding-bottom: 10px; width: fit-content; }
+        section:not(#top) { background: rgba(5, 5, 5, 0.96); z-index: 100; }
+        h1 { font-size: 40px; margin-bottom: 30px; border-left: 5px solid var(--primary-red); padding-left: 20px; }
 
-        .char-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; width: 100%; max-width: 1000px; }
-        .char-card { height: 400px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; cursor: pointer; transition: 0.5s; position: relative; }
-        .char-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 0.5s; }
-        .char-card:hover { border-color: var(--primary-red); box-shadow: var(--glow); }
-        .char-card:hover img { opacity: 1; transform: scale(1.05); }
+        /* VIDEO CONTAINER - SỬA LỖI VIDEO NHỎ */
+        .video-container { 
+            width: 100%; 
+            max-width: 900px; 
+            aspect-ratio: 16 / 9; 
+            border: 2px solid var(--dark-red); 
+            background: #000;
+            margin: 0 auto;
+            position: relative;
+        }
+        .video-container iframe { width: 100%; height: 100%; border: none; }
+
+        /* CHARACTERS */
+        .char-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; width: 100%; }
+        .char-card { height: 450px; border: 1px solid #222; overflow: hidden; cursor: pointer; transition: 0.4s; background: #111; }
+        .char-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; transition: 0.5s; }
+        .char-card:hover { border-color: var(--primary-red); }
+        .char-card:hover img { opacity: 1; transform: scale(1.02); }
 
         /* POPUP */
-        .popup { position: fixed; inset: 0; background: rgba(0,0,0,0.98); display: none; z-index: 10000; padding: 50px; backdrop-filter: blur(10px); }
-        .popup-box { display: flex; width: 100%; height: 100%; border: 1px solid var(--dark-red); background: #000; position: relative; overflow: hidden;}
-        .popup-left { width: 45%; border-right: 1px solid var(--dark-red); }
+        .popup { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: none; z-index: 10000; padding: 5%; }
+        .popup-box { display: flex; width: 100%; height: 100%; border: 1px solid var(--dark-red); background: #050505; position: relative; }
+        .popup-left { width: 40%; border-right: 1px solid #222; }
         .popup-left img { width: 100%; height: 100%; object-fit: cover; }
-        .popup-right { width: 55%; padding: 40px 60px; display: flex; flex-direction: column; overflow-y: auto; }
-        .close-btn { position: absolute; top: 20px; right: 30px; font-size: 40px; color: var(--primary-red); cursor: pointer; }
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; border-top: 1px solid #222; border-bottom: 1px solid #222; padding: 20px 0; }
-        .stat-item { font-size: 11px; color: #555; letter-spacing: 1px; }
-        .stat-item span { display: block; color: #fff; font-size: 14px; font-weight: 700; margin-top: 4px; }
-        .skill-tag { border: 1px solid var(--primary-red); color: var(--primary-red); padding: 4px 12px; font-size: 11px; margin: 0 8px 8px 0; display: inline-block; }
+        .popup-right { width: 60%; padding: 40px; overflow-y: auto; }
+        .close-btn { position: absolute; top: 20px; right: 30px; font-size: 30px; color: var(--primary-red); cursor: pointer; }
+        
+        .skill-tag { border: 1px solid var(--primary-red); color: var(--primary-red); padding: 5px 15px; font-size: 12px; margin: 5px; display: inline-block; }
 
-        @media (max-width: 992px) { .popup-box { flex-direction: column; overflow-y: auto; } .popup-left, .popup-right { width: 100%; } .popup-left { height: 400px; } }
+        @media (max-width: 850px) {
+            .popup-box { flex-direction: column; overflow-y: auto; }
+            .popup-left, .popup-right { width: 100%; }
+            .popup-left { height: 300px; }
+            header { top: 20px; right: 20px; }
+            .hero-content { left: 5%; }
+        }
     </style>
 </head>
 <body>
@@ -194,21 +155,21 @@
     </nav>
 </header>
 
-<div class="hero-content">
-    <div class="chalk-logo">ASHEN TOWN</div><br>
-    <div class="sub-logo" id="hero-sub" style="font-family:'Special Elite'; font-size: 30px; letter-spacing: 12px; border: 1px solid #444; padding: 5px 20px; background: rgba(0,0,0,0.6); display: inline-block;">PURGATORY</div>
+<div class="hero-content" id="top">
+    <div class="chalk-logo">ASHEN TOWN</div>
+    <div id="hero-sub" style="font-family:'Special Elite'; font-size: 24px; letter-spacing: 10px; color: var(--primary-red); margin: 10px 0;">PURGATORY</div>
     
     <div class="release-info" style="margin-top:20px;">
-        <span id="txt-protocol" style="opacity: 0.5; font-size: 14px; letter-spacing: 2px;">PROTOCOL: EARLY_ACCESS</span><br>
-        <span id="txt-deployment" style="color: var(--primary-red); font-size: 22px; text-shadow: 0 0 10px var(--primary-red);">DEPLOYMENT: ??/??/2030</span>
-        <br>
-        <a href="javascript:void(0)" class="btn-disabled"><i class="fa-solid fa-download"></i> <span id="txt-dl">DOWNLOAD NOW</span></a>
+        <p id="txt-protocol" style="opacity: 0.5; font-size: 12px; letter-spacing: 2px;">PROTOCOL: EARLY_ACCESS</p>
+        <p id="txt-deployment" style="color: #fff; font-size: 20px; letter-spacing: 1px;">DEPLOYMENT: ??/??/2030</p>
+        <a href="#" class="support-me" style="margin-top:20px; animation: none; background: transparent; color: #fff; border: 1px dashed #444;">
+            <i class="fa-solid fa-lock"></i> <span id="txt-dl">COMING SOON</span>
+        </a>
     </div>
 </div>
 
 <div class="action-stack">
     <div class="social-icons">
-        <span style="font-family: 'Special Elite'; font-size: 12px; color: #fff;">FOLLOW :</span>
         <a href="#"><i class="fa-brands fa-youtube"></i></a>
         <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
         <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
@@ -216,33 +177,31 @@
     <a href="https://ko-fi.com/mikaindie1" target="_blank" class="support-me"><i class="fa-solid fa-heart"></i> SUPPORT ME</a>
 </div>
 
-<section id="top"></section>
-
 <section id="about">
-    <h1 data-key="h-about">ABOUT</h1>
+    <h1 data-key="nav-about">ABOUT</h1>
     <div id="about-content" style="max-width: 800px;"></div>
 </section>
 
 <section id="story">
-    <h1 data-key="h-story">STORY</h1>
+    <h1 data-key="nav-story">STORY</h1>
     <div id="story-content" style="max-width: 800px;"></div>
 </section>
 
 <section id="characters" style="align-items: center;">
-    <h1 data-key="h-chars">CHARACTERS</h1>
+    <h1 data-key="nav-chars">CHARACTERS</h1>
     <div class="char-row" id="char-grid"></div>
 </section>
 
-<section id="trailers" style="align-items: center; width: 100%;">
-    <h1 data-key="h-trailers">TRAILERS</h1>
+<section id="trailers" style="align-items: center;">
+    <h1 data-key="nav-trailers">TRAILERS</h1>
     <div class="video-container">
         <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
     </div>
 </section>
 
 <section id="contact" style="align-items: center;">
-    <h1 data-key="h-contact">CONTACT</h1>
-    <p style="font-family: 'Special Elite'; font-size: 20px;">EMAIL: <a href="mailto:mikaindie1@gmail.com" style="color: var(--primary-red); text-decoration: none;">mikaindie1@gmail.com</a></p>
+    <h1 data-key="nav-contact">CONTACT</h1>
+    <p style="font-family: 'Special Elite'; font-size: 18px;">REPORT TO: <a href="mailto:mikaindie1@gmail.com" style="color: var(--primary-red); text-decoration: none;">mikaindie1@gmail.com</a></p>
 </section>
 
 <div id="popup" class="popup">
@@ -250,11 +209,11 @@
         <span class="close-btn" onclick="closePopup()">×</span>
         <div class="popup-left"><img id="p-img" src=""></div>
         <div class="popup-right">
-            <h2 id="p-name" style="font-family: 'Orbitron'; font-size: 40px; color: #fff; margin-bottom: 10px;"></h2>
-            <div style="margin-top: 25px; font-family: 'Special Elite'; font-size: 15px; color: #ccc; border: 1px solid #222; padding: 20px; background: rgba(255,255,255,0.02); min-height: 100px;">
+            <h2 id="p-name" style="font-family: 'Orbitron'; font-size: 35px; color: var(--primary-red);"></h2>
+            <div style="margin: 20px 0; padding: 20px; background: rgba(255,255,255,0.03); border: 1px solid #222;">
                 <p id="p-desc"></p>
             </div>
-            <div class="stats-grid" id="p-stats"></div>
+            <div id="p-stats" style="margin-bottom: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;"></div>
             <div id="p-skills"></div>
         </div>
     </div>
@@ -264,36 +223,24 @@
     const langData = {
         en: {
             nav: { "nav-top": "TOP", "nav-about": "ABOUT", "nav-story": "STORY", "nav-chars": "CHARACTERS", "nav-trailers": "TRAILERS", "nav-contact": "CONTACT" },
-            hero: { sub: "PURGATORY", proto: "PROTOCOL: EARLY_ACCESS", deploy: "DEPLOYMENT: ??/??/2030", dl: "DOWNLOAD NOW" },
-            about: `
-                <p style="margin-bottom: 25px; line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Enter Ashen Town: Purgatory</strong>Where ancient myths collide with visceral survival horror.</p>
-                <p style="margin-bottom: 25px; line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">The Mission</strong>Play as <strong>Reika</strong>, a bio-terrorism operative thrust into a high-stakes investigation.</p>
-                <p style="line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Experience the Terror</strong>Brace yourself for breathtaking action and heart-stopping terror as you unravel the dark secrets of a town lost to history.</p>`,
-            story: `
-                <p style="margin-bottom: 25px; line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">A Silence That Screams</strong>A series of chilling disappearances has plagued the remote town of Kisaragi, Japan. Yet, a suffocating silence hangs over the media and local authorities—no reports, no warnings, no traces.</p>
-                <p style="margin-bottom: 25px; line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">The Descent into Darkness</strong>Driven by duty and personal ties, <strong>Reika</strong> arrives to investigate. What she discovers is far more sinister than a simple kidnapping.</p>
-                <p style="line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Face the Nightmare</strong>As Reika, you must navigate a web of terrifying conspiracies to rescue the child and expose the darkness before it consumes the world.</p>`,
+            hero: { sub: "PURGATORY", proto: "PROTOCOL: EARLY_ACCESS", deploy: "DEPLOYMENT: ??/??/2030", dl: "COMING SOON" },
+            about: `<p><strong>Enter Ashen Town: Purgatory</strong> - Where ancient myths collide with visceral survival horror.</p><br><p>Play as <strong>Reika</strong>, a bio-terrorism operative thrust into a high-stakes investigation in a town that shouldn't exist.</p>`,
+            story: `<p>A series of chilling disappearances has plagued the remote town of Kisaragi, Japan. A suffocating silence hangs over the authorities—no reports, no traces.</p><br><p>Driven by duty, Reika arrives to investigate. What she discovers is a terrifying conspiracy that threatens to consume the world.</p>`,
             chars: [
-                { img: 'Character_01.jpg', name: 'REIKA', desc: 'A high-ranking bio-terrorism operative specializing in field analysis and infiltration.', stats: 'Rank: Senior Agent | Blood: AB- | Height: 170cm | Weight: 55kg', skills: 'Pistol Mastery, Data Decryption, Krav Maga' },
-                { img: 'Character_02.jpg', name: 'UNKNOWN', desc: '???', stats: 'Rank: ??? | Blood: ??? | Height: ??? | Weight: ???', skills: 'UNKNOWN' },
-                { img: 'Character_03.jpg', name: 'UNKNOWN', desc: '???', stats: 'Rank: ??? | Blood: ??? | Height: ??? | Weight: ???', skills: 'UNKNOWN' }
+                { img: 'Character_01.jpg', name: 'REIKA', desc: 'A high-ranking bio-terrorism operative specializing in field analysis and infiltration.', stats: 'Rank: Senior Agent | Blood: AB- | Height: 170cm', skills: 'Pistol Mastery, Data Decryption' },
+                { img: 'Character_02.jpg', name: 'UNKNOWN', desc: 'Data Corrupted.', stats: 'Rank: ??? | Blood: ???', skills: 'UNKNOWN' },
+                { img: 'Character_03.jpg', name: 'UNKNOWN', desc: 'Data Corrupted.', stats: 'Rank: ??? | Blood: ???', skills: 'UNKNOWN' }
             ]
         },
         vi: {
             nav: { "nav-top": "ĐẦU TRANG", "nav-about": "GIỚI THIỆU", "nav-story": "CỐT TRUYỆN", "nav-chars": "NHÂN VẬT", "nav-trailers": "TRAILERS", "nav-contact": "LIÊN HỆ" },
-            hero: { sub: "LUÂN HỒI", proto: "GIAO THỨC: TRUY CẬP SỚM", deploy: "TRIỂN KHAI: ??/??/2030", dl: "TẢI XUỐNG NGAY" },
-            about: `
-                <p style="margin-bottom: 25px; line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Bước vào Ashen Town: Purgatory</strong>Nơi những huyền thoại cổ xưa đối đầu với nỗi kinh hoàng sinh tồn rợn tóc gáy.</p>
-                <p style="margin-bottom: 25px; line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Nhiệm vụ</strong>Vào vai <strong>Reika</strong>, đặc vụ chống khủng bố sinh học dấn thân vào một cuộc điều tra đầy hiểm nguy.</p>
-                <p style="line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Trải nghiệm sự sợ hãi</strong>Hãy sẵn sàng cho những pha hành động nghẹt thở khi bạn lật mở những bí mật đen tối của một thị trấn bị lịch sử lãng quên.</p>`,
-            story: `
-                <p style="margin-bottom: 25px; line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Sự im lặng đáng sợ</strong>Hàng loạt vụ mất tích bí ẩn bao trùm thị trấn hẻo lánh Kisaragi, Nhật Bản. Tuy nhiên, một sự im lặng đến nghẹt thở bao trùm lên truyền thông và chính quyền địa phương.</p>
-                <p style="margin-bottom: 25px; line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Sa vào bóng tối</strong>Được thúc đẩy bởi nhiệm vụ và các mối quan hệ cá nhân, <strong>Reika</strong> đến để điều tra. Những gì cô phát hiện ra còn thâm độc hơn nhiều so với một vụ bắt cóc đơn thuần.</p>
-                <p style="line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Đối mặt với ác mộng</strong>Trong vai Reika, bạn phải vượt qua mạng lưới âm mưu kinh hoàng để giải cứu đứa trẻ và phơi bày bóng tối trước khi nó nuốt chửng thế giới.</p>`,
+            hero: { sub: "LUYỆN NGỤC", proto: "GIAO THỨC: TRUY CẬP SỚM", deploy: "TRIỂN KHAI: ??/??/2030", dl: "SẮP RA MẮT" },
+            about: `<p><strong>Bước vào Ashen Town: Luyện Ngục</strong> - Nơi những huyền thoại cổ xưa đối đầu với nỗi kinh hoàng sinh tồn rợn tóc gáy.</p><br><p>Vào vai <strong>Reika</strong>, đặc vụ chống khủng bố sinh học dấn thân vào một cuộc điều tra đầy hiểm nguy tại một thị trấn lẽ ra không nên tồn tại.</p>`,
+            story: `<p>Hàng loạt vụ mất tích bí ẩn bao trùm thị trấn hẻo lánh Kisaragi, Nhật Bản. Một sự im lặng đến nghẹt thở bao trùm lên chính quyền—không báo cáo, không dấu vết.</p><br><p>Được thúc đẩy bởi nhiệm vụ, Reika đến để điều tra và phát hiện ra một âm mưu kinh hoàng đe dọa nuốt chửng thế giới.</p>`,
             chars: [
-                { img: 'Character_01.jpg', name: 'REIKA', desc: 'Đặc vụ chống khủng bố sinh học cấp cao chuyên về phân tích hiện trường và xâm nhập.', stats: 'Cấp bậc: Đặc vụ | Nhóm máu: AB- | Chiều cao: 170cm | Cân nặng: 55kg', skills: 'Bậc thầy súng ngắn, Giải mã dữ liệu, Krav Maga' },
-                { img: 'Character_02.jpg', name: 'KHÔNG XÁC ĐỊNH', desc: 'KHÔNG XÁC ĐỊNH', stats: 'Cấp bậc: ??? | Nhóm máu: ??? | Chiều cao: ??? | Cân nặng: ???', skills: '???' },
-                { img: 'Character_03.jpg', name: 'KHÔNG XÁC ĐỊNH', desc: 'KHÔNG XÁC ĐỊNH', stats: 'Cấp bậc: ??? | Nhóm máu: ??? | Chiều cao: ??? | Cân nặng: ???', skills: '???' }
+                { img: 'Character_01.jpg', name: 'REIKA', desc: 'Đặc vụ chống khủng bố sinh học cấp cao, chuyên gia phân tích hiện trường và xâm nhập.', stats: 'Cấp bậc: Đặc vụ | Nhóm máu: AB- | Chiều cao: 170cm', skills: 'Bậc thầy súng ngắn, Giải mã dữ liệu' },
+                { img: 'Character_02.jpg', name: 'KHÔNG XÁC ĐỊNH', desc: 'Dữ liệu bị lỗi.', stats: 'Cấp bậc: ??? | Nhóm máu: ???', skills: '???' },
+                { img: 'Character_03.jpg', name: 'KHÔNG XÁC ĐỊNH', desc: 'Dữ liệu bị lỗi.', stats: 'Cấp bậc: ??? | Nhóm máu: ???', skills: '???' }
             ]
         }
     };
@@ -305,49 +252,37 @@
         document.documentElement.lang = lang;
         const data = langData[lang];
 
-        // Nav
+        // Update Nav & Headers
         Object.keys(data.nav).forEach(key => {
             const el = document.querySelector(`[data-key="${key}"]`);
-            if(el) el.innerHTML = `${data.nav[key]} <span class="nav-dot"></span>`;
+            if(el) {
+                if(el.tagName === 'A') el.innerHTML = `${data.nav[key]} <span class="nav-dot"></span>`;
+                else el.innerText = data.nav[key];
+            }
         });
-        
-        // Headers
-        document.querySelector('[data-key="h-about"]').innerText = data.nav["nav-about"];
-        document.querySelector('[data-key="h-story"]').innerText = data.nav["nav-story"];
-        document.querySelector('[data-key="h-chars"]').innerText = data.nav["nav-chars"];
-        document.querySelector('[data-key="h-trailers"]').innerText = data.nav["nav-trailers"];
-        document.querySelector('[data-key="h-contact"]').innerText = data.nav["nav-contact"];
 
-        // Hero
+        // Update Hero
         document.getElementById('hero-sub').innerText = data.hero.sub;
         document.getElementById('txt-protocol').innerText = data.hero.proto;
         document.getElementById('txt-deployment').innerText = data.hero.deploy;
         document.getElementById('txt-dl').innerText = data.hero.dl;
 
-        // Content
+        // Update Content
         document.getElementById('about-content').innerHTML = data.about;
         document.getElementById('story-content').innerHTML = data.story;
 
-        // Characters Grid
+        // Update Characters Grid
         const grid = document.getElementById('char-grid');
         grid.innerHTML = '';
         data.chars.forEach((c, i) => {
             grid.innerHTML += `<div class="char-card" onclick="openCharacter(${i})"><img src="${c.img}"></div>`;
         });
 
-        // Toggle buttons
-        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-        event?.target.classList.add('active');
-    }
-
-    let typeIndex = 0;
-    let typeText = "";
-    function typeWriter() {
-        if (typeIndex < typeText.length) {
-            document.getElementById("p-desc").innerHTML += typeText.charAt(typeIndex);
-            typeIndex++;
-            setTimeout(typeWriter, 15);
-        }
+        // Update Buttons State
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.remove('active');
+            if(btn.innerText.toLowerCase() === (lang === 'vi' ? 'vn' : 'en')) btn.classList.add('active');
+        });
     }
 
     function openCharacter(index) {
@@ -355,29 +290,27 @@
         document.getElementById("popup").style.display = "block";
         document.getElementById("p-img").src = char.img;
         document.getElementById("p-name").innerText = char.name;
-        document.getElementById("p-desc").innerText = "";
-        typeText = char.desc;
-        typeIndex = 0;
-        typeWriter();
+        document.getElementById("p-desc").innerText = char.desc;
 
         const statsGrid = document.getElementById("p-stats");
         statsGrid.innerHTML = "";
-        char.stats.split('|').forEach(stat => {
-            const [label, value] = stat.split(':');
-            statsGrid.innerHTML += `<div class="stat-item">${label.trim()} <span>${value.trim()}</span></div>`;
+        char.stats.split('|').forEach(s => {
+            statsGrid.innerHTML += `<div style="font-size:12px; color:#666;">${s.trim()}</div>`;
         });
 
         const skillsDiv = document.getElementById("p-skills");
-        skillsDiv.innerHTML = `<span style="font-family:'Orbitron'; font-size:11px; color:var(--primary-red);">SPECIAL SKILLS</span><div class="skills-container"></div>`;
+        skillsDiv.innerHTML = "";
         char.skills.split(',').forEach(s => {
-            skillsDiv.querySelector('.skills-container').innerHTML += `<span class="skill-tag">${s.trim()}</span>`;
+            skillsDiv.innerHTML += `<span class="skill-tag">${s.trim()}</span>`;
         });
     }
 
     function closePopup() { document.getElementById("popup").style.display = "none"; }
+
     window.onload = () => switchLang('en');
     window.addEventListener("scroll", () => {
-        document.getElementById("bgImg").style.transform = `translateY(${window.pageYOffset * 0.1}px)`;
+        const scrolled = window.pageYOffset;
+        document.getElementById("bgImg").style.transform = `scale(${1 + scrolled * 0.0001}) translateY(${scrolled * 0.1}px)`;
     });
 </script>
 
