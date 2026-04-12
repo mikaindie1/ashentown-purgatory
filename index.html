@@ -71,8 +71,26 @@
         .inv-item:hover { color: var(--primary-red); transform: translateX(-10px); }
 
         /* NGÔN NGỮ */
-        .lang-switch { margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; }
-        .lang-btn { background: none; border: none; color: #555; cursor: pointer; font-family: 'Orbitron'; font-size: 12px; transition: 0.3s; }
+        .lang-switch { 
+            margin-top: 10px; 
+            border-top: 1px solid rgba(255,255,255,0.1); 
+            padding-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .lang-btn { 
+            background: none; 
+            border: none; 
+            color: #555; 
+            cursor: pointer; 
+            font-family: 'Orbitron'; 
+            font-size: 12px; 
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
         .lang-btn.active { color: var(--primary-red); text-shadow: var(--glow); }
 
         /* HERO & LOGO */
@@ -166,7 +184,7 @@
         <a href="#trailers" class="inv-item" data-key="nav-trailers">TRAILERS <span class="nav-dot"></span></a>
         <a href="#contact" class="inv-item" data-key="nav-contact">CONTACT <span class="nav-dot"></span></a>
         
-       <div class="lang-switch">
+        <div class="lang-switch">
             <button class="lang-btn active" onclick="switchLang('en')">🇺🇸 EN</button>
             <span style="color:#333">/</span>
             <button class="lang-btn" onclick="switchLang('vi')">🇻🇳 VN</button>
@@ -271,7 +289,7 @@
                 <p style="margin-bottom: 25px; line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Sa vào bóng tối</strong>Được thúc đẩy bởi nhiệm vụ và các mối quan hệ cá nhân, <strong>Reika</strong> đến để điều tra. Những gì cô phát hiện ra còn thâm độc hơn nhiều so với một vụ bắt cóc đơn thuần.</p>
                 <p style="line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Đối mặt với ác mộng</strong>Trong vai Reika, bạn phải vượt qua mạng lưới âm mưu kinh hoàng để giải cứu đứa trẻ và phơi bày bóng tối trước khi nó nuốt chửng thế giới.</p>`,
             chars: [
-                { img: 'Character_01.jpg', name: 'REIKA', desc: 'Đặc vụ chống khủng bố sinh học cấp cao chuyên về phân tích hiện trường và xâm nhập.', stats: 'Cấp bậc: Đặc vụ | Nhóm máu: AB- | Chiều cao: 170cm | Cân nặng: 55kg', skills: 'Bậc thầy súng ngắn, Giải mã dữ liệu, Krav Maga' },
+                { img: 'Character_01.jpg', name: 'REIKA', desc: 'Đặc vụ chống khủng báu sinh học cấp cao chuyên về phân tích hiện trường và xâm nhập.', stats: 'Cấp bậc: Đặc vụ | Nhóm máu: AB- | Chiều cao: 170cm | Cân nặng: 55kg', skills: 'Bậc thầy súng ngắn, Giải mã dữ liệu, Krav Maga' },
                 { img: 'Character_02.jpg', name: 'KHÔNG XÁC ĐỊNH', desc: 'KHÔNG XÁC ĐỊNH', stats: 'Cấp bậc: ??? | Nhóm máu: ??? | Chiều cao: ??? | Cân nặng: ???', skills: '???' },
                 { img: 'Character_03.jpg', name: 'KHÔNG XÁC ĐỊNH', desc: 'KHÔNG XÁC ĐỊNH', stats: 'Cấp bậc: ??? | Nhóm máu: ??? | Chiều cao: ??? | Cân nặng: ???', skills: '???' }
             ]
@@ -290,7 +308,6 @@
             const el = document.querySelector(`[data-key="${key}"]`);
             if(el) el.innerHTML = `${data.nav[key]} <span class="nav-dot"></span>`;
             
-            // Cập nhật text tiêu đề section (H1)
             const h1 = document.querySelector(`h1[data-key="${key}"]`);
             if(h1) h1.innerText = data.nav[key];
         });
@@ -312,12 +329,12 @@
             grid.innerHTML += `<div class="char-card" onclick="openCharacter(${i})"><img src="${c.img}"></div>`;
         });
 
-        // Fix logic toggle buttons
+        // Toggle Active state for buttons
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.classList.remove('active');
-            if(btn.innerText.toLowerCase() === (lang === 'vi' ? 'vn' : 'en')) {
-                btn.classList.add('active');
-            }
+            // Kiểm tra chữ bên trong nút (VN hoặc EN) để gán class active
+            if(btn.innerText.includes('VN') && lang === 'vi') btn.classList.add('active');
+            if(btn.innerText.includes('EN') && lang === 'en') btn.classList.add('active');
         });
     }
 
