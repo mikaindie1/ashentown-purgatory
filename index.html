@@ -26,11 +26,9 @@
             text-transform: uppercase;
         }
 
-        /* Đảm bảo font tiếng Việt dễ đọc hơn */
         html[lang="vi"] body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; }
         h1, .chalk-logo, .inv-item, .skill-tag, .stat-item { font-family: 'Orbitron', sans-serif !important; }
 
-        /* HIỆU ỨNG CRT TOÀN MÀN HÌNH */
         body::before {
             content: " "; display: block; position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
@@ -48,7 +46,6 @@
 
         @keyframes flicker { 0% { opacity: 0.27; } 5% { opacity: 0.35; } 10% { opacity: 0.24; } 100% { opacity: 0.24; } }
 
-        /* HÌNH NỀN */
         .static-bg {
             position: fixed; top: -5%; left: -5%; width: 110%; height: 110%;
             background: url('mikaindie.jpg') no-repeat center center;
@@ -59,7 +56,6 @@
         @keyframes breathing { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         .overlay { position: fixed; inset: 0; background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.4) 110%, rgba(0,0,0,0.9) 140%); z-index: -1; }
 
-        /* MENU PHẢI */
         header { position: fixed; top: 50px; right: 40px; z-index: 2000; }
         .inventory-menu { display: flex; flex-direction: column; align-items: flex-end; gap: 20px; }
         .inv-item {
@@ -70,14 +66,14 @@
         @keyframes pulse-red { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.4; } }
         .inv-item:hover { color: var(--primary-red); transform: translateX(-10px); }
 
-        /* NGÔN NGỮ */
+        /* PHẦN NGÔN NGỮ ĐÃ CẬP NHẬT */
         .lang-switch { 
             margin-top: 10px; 
             border-top: 1px solid rgba(255,255,255,0.1); 
-            padding-top: 10px;
+            padding-top: 15px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 10px;
         }
         .lang-btn { 
             background: none; 
@@ -87,13 +83,13 @@
             font-family: 'Orbitron'; 
             font-size: 12px; 
             transition: 0.3s;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
         }
         .lang-btn.active { color: var(--primary-red); text-shadow: var(--glow); }
+        .lang-btn:hover { color: #fff; }
 
-        /* HERO & LOGO */
         .hero-content { position: fixed; top: 50%; left: 8%; transform: translateY(-50%); z-index: 10; }
         .chalk-logo {
             font-family: 'Special Elite', cursive !important; font-size: clamp(60px, 10vw, 120px);
@@ -108,7 +104,6 @@
         @keyframes flicker-text { 0%, 18%, 20%, 50%, 100% { opacity: 1; } 19%, 22% { opacity: 0.6; } }
         @keyframes glitch-anim { 0% { clip: rect(20px, 999px, 40px, 0); transform: skew(0.5deg); } 100% { clip: rect(50px, 999px, 70px, 0); } }
 
-        /* RELEASE INFO */
         .release-info span:first-child { animation: pulse-text 3s infinite ease-in-out; display: inline-block; }
         @keyframes pulse-text { 0%, 100% { opacity: 0.6; transform: scale(1); filter: blur(0px); } 50% { opacity: 0.2; transform: scale(0.98); filter: blur(1px); } }
 
@@ -118,12 +113,10 @@
             border: 1px dashed rgba(255, 255, 255, 0.2); font-size: 13px; letter-spacing: 2px; text-decoration: none; cursor: not-allowed;
         }
 
-        /* ACTION STACK */
         .action-stack { position: fixed; bottom: 50px; right: 40px; display: flex; flex-direction: column; align-items: flex-end; gap: 20px; z-index: 2000; }
         .social-icons a { color: #fff; font-size: 20px; transition: 0.2s; margin-left: 15px;}
         .social-icons a:hover { color: var(--primary-red); text-shadow: var(--glow); }
 
-        /* NÚT SUPPORT ME */
         .support-me {
             background: #fff; color: #000; padding: 12px 30px; text-decoration: none;
             font-weight: 700; letter-spacing: 2px; border: 1px solid #fff; 
@@ -140,12 +133,10 @@
         .support-me:hover { background: var(--primary-red); color: #fff; border-color: var(--primary-red); animation: none; transform: scale(1.1); }
         .support-me:hover i { color: #fff; }
 
-        /* SECTIONS */
         section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 100px 10%; position: relative; }
         section:not(#top) { background: rgba(5, 5, 5, 0.95); z-index: 100; box-shadow: 0 -50px 100px #000; }
         h1 { font-size: 50px; margin-bottom: 30px; border-bottom: 2px solid var(--primary-red); padding-bottom: 10px; width: fit-content; }
 
-        /* VIDEO CONTAINER FIX */
         .video-container { width: 100%; max-width: 800px; aspect-ratio: 16/9; border: 1px solid var(--dark-red); }
         .video-container iframe { width: 100%; height: 100%; border: none; }
 
@@ -155,7 +146,6 @@
         .char-card:hover { border-color: var(--primary-red); box-shadow: var(--glow); }
         .char-card:hover img { opacity: 1; transform: scale(1.05); }
 
-        /* POPUP */
         .popup { position: fixed; inset: 0; background: rgba(0,0,0,0.98); display: none; z-index: 10000; padding: 50px; backdrop-filter: blur(10px); }
         .popup-box { display: flex; width: 100%; height: 100%; border: 1px solid var(--dark-red); background: #000; position: relative; overflow: hidden;}
         .popup-left { width: 45%; border-right: 1px solid var(--dark-red); }
@@ -184,21 +174,18 @@
         <a href="#trailers" class="inv-item" data-key="nav-trailers">TRAILERS <span class="nav-dot"></span></a>
         <a href="#contact" class="inv-item" data-key="nav-contact">CONTACT <span class="nav-dot"></span></a>
         
-<div class="lang-switch">
-    <button class="lang-btn active" onclick="switchLang('en')">
-        <i class="fa-solid fa-flag-usa" style="color: #4169e1;"></i> EN
-    </button>
-    
-    <span style="color:#333">/</span>
-    
-    <button class="lang-btn" onclick="switchLang('vi')">
-        <svg width="16" height="12" viewBox="0 0 30 20" style="border-radius: 2px;">
-            <rect width="30" height="20" fill="#da251d"/>
-            <polygon points="15,4 16.18,7.63 20,7.63 16.91,9.88 18.09,13.51 15,11.25 11.91,13.51 13.09,9.88 10,7.63 13.82,7.63" fill="#ffff00"/>
-        </svg> VN
-    </button>
-</div>
-        
+        <div class="lang-switch">
+            <button class="lang-btn active" onclick="switchLang('en')">
+                <i class="fa-solid fa-flag-usa" style="color: #4169e1;"></i> EN
+            </button>
+            <span style="color:#333">/</span>
+            <button class="lang-btn" onclick="switchLang('vi')">
+                <svg width="16" height="12" viewBox="0 0 30 20" style="border-radius: 2px;">
+                    <rect width="30" height="20" fill="#da251d"/>
+                    <polygon points="15,4 16.18,7.63 20,7.63 16.91,9.88 18.09,13.51 15,11.25 11.91,13.51 13.09,9.88 10,7.63 13.82,7.63" fill="#ffff00"/>
+                </svg> VN
+            </button>
+        </div>
     </nav>
 </header>
 
@@ -313,38 +300,32 @@
         document.documentElement.lang = lang;
         const data = langData[lang];
 
-        // Nav & Headers
         Object.keys(data.nav).forEach(key => {
             const el = document.querySelector(`[data-key="${key}"]`);
             if(el) el.innerHTML = `${data.nav[key]} <span class="nav-dot"></span>`;
-            
             const h1 = document.querySelector(`h1[data-key="${key}"]`);
             if(h1) h1.innerText = data.nav[key];
         });
 
-        // Hero
         document.getElementById('hero-sub').innerText = data.hero.sub;
         document.getElementById('txt-protocol').innerText = data.hero.proto;
         document.getElementById('txt-deployment').innerText = data.hero.deploy;
         document.getElementById('txt-dl').innerText = data.hero.dl;
-
-        // Content
         document.getElementById('about-content').innerHTML = data.about;
         document.getElementById('story-content').innerHTML = data.story;
 
-        // Characters Grid
         const grid = document.getElementById('char-grid');
         grid.innerHTML = '';
         data.chars.forEach((c, i) => {
             grid.innerHTML += `<div class="char-card" onclick="openCharacter(${i})"><img src="${c.img}"></div>`;
         });
 
-        // Toggle Active state for buttons
+        // LOGIC ĐỔI MÀU NÚT ACTIVE ĐÃ SỬA LỖI
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.classList.remove('active');
-            // Kiểm tra chữ bên trong nút (VN hoặc EN) để gán class active
-            if(btn.innerText.includes('VN') && lang === 'vi') btn.classList.add('active');
-            if(btn.innerText.includes('EN') && lang === 'en') btn.classList.add('active');
+            const btnText = btn.textContent.trim();
+            if(btnText === 'VN' && lang === 'vi') btn.classList.add('active');
+            if(btnText === 'EN' && lang === 'en') btn.classList.add('active');
         });
     }
 
