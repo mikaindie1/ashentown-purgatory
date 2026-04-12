@@ -66,7 +66,7 @@
         @keyframes pulse-red { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: 0.4; } }
         .inv-item:hover { color: var(--primary-red); transform: translateX(-10px); }
 
-        /* PHẦN NGÔN NGỮ ĐÃ CẬP NHẬT */
+        /* PHẦN NGÔN NGỮ ĐÃ ĐỒNG BỘ */
         .lang-switch { 
             margin-top: 10px; 
             border-top: 1px solid rgba(255,255,255,0.1); 
@@ -85,9 +85,14 @@
             transition: 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px; /* Khoảng cách giữa cờ và chữ */
+        }
+        .lang-btn svg {
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: 0.3s;
         }
         .lang-btn.active { color: var(--primary-red); text-shadow: var(--glow); }
+        .lang-btn.active svg { border-color: var(--primary-red); box-shadow: 0 0 5px var(--primary-red); }
         .lang-btn:hover { color: #fff; }
 
         .hero-content { position: fixed; top: 50%; left: 8%; transform: translateY(-50%); z-index: 10; }
@@ -176,11 +181,20 @@
         
         <div class="lang-switch">
             <button class="lang-btn active" onclick="switchLang('en')">
-                <i class="fa-solid fa-flag-usa" style="color: #4169e1;"></i> EN
+                <svg width="18" height="12" viewBox="0 0 7410 3900" style="border-radius: 1px;">
+                    <rect width="7410" height="3900" fill="#3c3b6e"/>
+                    <rect width="7410" height="300" y="0" fill="#b22234"/><rect width="7410" height="300" y="600" fill="#b22234"/><rect width="7410" height="300" y="1200" fill="#b22234"/><rect width="7410" height="300" y="1800" fill="#b22234"/><rect width="7410" height="300" y="2400" fill="#b22234"/><rect width="7410" height="300" y="3000" fill="#b22234"/><rect width="7410" height="300" y="3600" fill="#b22234"/>
+                    <rect width="2964" height="2100" fill="#3c3b6e"/>
+                    <g fill="#fff">
+                        <g id="s18"><g id="s9"><g id="s5"><g id="s"><polygon points="0,-42 24.7,33.9 -40,-12.9 40,-12.9 -24.7,33.9"/></g><use xlink:href="#s" x="494"/><use xlink:href="#s" x="988"/><use xlink:href="#s" x="1482"/><use xlink:href="#s" x="1976"/></g><use xlink:href="#s5" x="247" y="150"/></g><use xlink:href="#s9" y="300"/></g><use xlink:href="#s18" y="600"/><use xlink:href="#s18" y="1200"/><use xlink:href="#s9" y="1800"/>
+                    </g>
+                </svg> EN
             </button>
+            
             <span style="color:#333">/</span>
+            
             <button class="lang-btn" onclick="switchLang('vi')">
-                <svg width="16" height="12" viewBox="0 0 30 20" style="border-radius: 2px;">
+                <svg width="18" height="12" viewBox="0 0 30 20" style="border-radius: 1px;">
                     <rect width="30" height="20" fill="#da251d"/>
                     <polygon points="15,4 16.18,7.63 20,7.63 16.91,9.88 18.09,13.51 15,11.25 11.91,13.51 13.09,9.88 10,7.63 13.82,7.63" fill="#ffff00"/>
                 </svg> VN
@@ -320,7 +334,6 @@
             grid.innerHTML += `<div class="char-card" onclick="openCharacter(${i})"><img src="${c.img}"></div>`;
         });
 
-        // LOGIC ĐỔI MÀU NÚT ACTIVE ĐÃ SỬA LỖI
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.classList.remove('active');
             const btnText = btn.textContent.trim();
