@@ -98,6 +98,20 @@
         }
         .inv-item:hover { color: var(--primary-red); transform: translateX(-10px); }
 
+        /* --- LANGUAGE SWITCHER --- */
+        .lang-switch {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            font-family: 'Special Elite';
+        }
+        .lang-btn {
+            background: none; border: none; color: #555; cursor: pointer;
+            font-size: 14px; transition: 0.3s;
+        }
+        .lang-btn.active { color: var(--primary-red); text-decoration: underline; }
+        .lang-btn:hover { color: #fff; }
+
         /* HERO & LOGO */
         .hero-content { position: fixed; top: 50%; left: 8%; transform: translateY(-50%); z-index: 10; }
         .chalk-logo {
@@ -114,7 +128,7 @@
         @keyframes glitch-anim { 0% { clip: rect(20px, 999px, 40px, 0); transform: skew(0.5deg); } 100% { clip: rect(50px, 999px, 70px, 0); } }
 
         /* RELEASE INFO HIỆU ỨNG THỞ */
-        .release-info span:first-child {
+        .release-info .pulse-label {
             animation: pulse-text 3s infinite ease-in-out;
             display: inline-block;
         }
@@ -130,7 +144,7 @@
             border: 1px dashed rgba(255, 255, 255, 0.2); font-family: 'Orbitron', sans-serif;
             font-size: 13px; letter-spacing: 2px; text-decoration: none; cursor: not-allowed; transition: 0.3s;
         }
-        .btn-disabled::after { content: " [LOCKED]"; font-size: 10px; color: var(--primary-red); margin-left: 8px; }
+        .btn-disabled span::after { content: " [LOCKED]"; font-size: 10px; color: var(--primary-red); margin-left: 8px; }
 
         /* ACTION STACK */
         .action-stack {
@@ -213,125 +227,70 @@
 
 <header>
     <nav class="inventory-menu">
-        <a href="#top" class="inv-item">TOP <span class="nav-dot"></span></a>
-        <a href="#about" class="inv-item">ABOUT <span class="nav-dot"></span></a>
-        <a href="#story" class="inv-item">STORY <span class="nav-dot"></span></a>
-        <a href="#characters" class="inv-item">CHARACTERS <span class="nav-dot"></span></a>
-        <a href="#trailers" class="inv-item">TRAILERS <span class="nav-dot"></span></a>
-        <a href="#contact" class="inv-item">CONTACT <span class="nav-dot"></span></a>
+        <a href="#top" class="inv-item" id="nav-top">TOP <span class="nav-dot"></span></a>
+        <a href="#about" class="inv-item" id="nav-about">ABOUT <span class="nav-dot"></span></a>
+        <a href="#story" class="inv-item" id="nav-story">STORY <span class="nav-dot"></span></a>
+        <a href="#characters" class="inv-item" id="nav-chars">CHARACTERS <span class="nav-dot"></span></a>
+        <a href="#trailers" class="inv-item" id="nav-trailers">TRAILERS <span class="nav-dot"></span></a>
+        <a href="#contact" class="inv-item" id="nav-contact">CONTACT <span class="nav-dot"></span></a>
+        
+        <div class="lang-switch">
+            <button class="lang-btn active" id="btn-en" onclick="setLanguage('en')">EN</button>
+            <button class="lang-btn" id="btn-vi" onclick="setLanguage('vi')">VI</button>
+        </div>
     </nav>
 </header>
 
 <div class="hero-content">
     <div class="chalk-logo">ASHEN TOWN</div><br>
-    <div class="sub-logo" style="font-family:'Special Elite'; font-size: 30px; letter-spacing: 12px; border: 1px solid #444; padding: 5px 20px; background: rgba(0,0,0,0.6); display: inline-block;">PURGATORY</div>
+    <div id="sub-logo" class="sub-logo" style="font-family:'Special Elite'; font-size: 30px; letter-spacing: 12px; border: 1px solid #444; padding: 5px 20px; background: rgba(0,0,0,0.6); display: inline-block;">PURGATORY</div>
     
     <div class="release-info" style="margin-top:20px;">
-        <span style="opacity: 0.5; font-size: 14px; letter-spacing: 2px;">PROTOCOL: EARLY_ACCESS</span><br>
-        <span style="color: var(--primary-red); font-size: 22px; text-shadow: 0 0 10px var(--primary-red);">DEPLOYMENT: ??/??/2030</span>
+        <span class="pulse-label" id="protocol-label" style="opacity: 0.5; font-size: 14px; letter-spacing: 2px;">PROTOCOL: EARLY_ACCESS</span><br>
+        <span id="deployment-label" style="color: var(--primary-red); font-size: 22px; text-shadow: 0 0 10px var(--primary-red);">DEPLOYMENT: ??/??/2030</span>
         <br>
-        <a href="javascript:void(0)" class="btn-disabled"><i class="fa-solid fa-download"></i> DOWNLOAD NOW</a>
-        <p style="font-size: 10px; color: #444; margin-top: 8px; text-transform: none; letter-spacing: 1px;">* Access restricted to authorized personnel.</p>
+        <a href="javascript:void(0)" class="btn-disabled"><i class="fa-solid fa-download"></i> <span id="btn-dl-text">DOWNLOAD NOW</span></a>
+        <p id="restriction-text" style="font-size: 10px; color: #444; margin-top: 8px; text-transform: none; letter-spacing: 1px;">* Access restricted to authorized personnel.</p>
     </div>
 </div>
 
 <div class="action-stack">
     <div class="social-icons">
-        <span style="font-family: 'Special Elite'; font-size: 12px; color: #fff;">FOLLOW :</span>
+        <span id="follow-label" style="font-family: 'Special Elite'; font-size: 12px; color: #fff;">FOLLOW :</span>
         <a href="#"><i class="fa-brands fa-youtube"></i></a>
         <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
         <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
     </div>
-    <a href="https://ko-fi.com/mikaindie1" target="_blank" class="support-me"><i class="fa-solid fa-heart"></i> SUPPORT ME</a>
+    <a href="https://ko-fi.com/mikaindie1" target="_blank" class="support-me" id="btn-support"><i class="fa-solid fa-heart"></i> SUPPORT ME</a>
 </div>
 
 <section id="top"></section>
 
 <section id="about">
-    <h1>ABOUT</h1>
-    
-    <div style="max-width: 800px;"> <p style="margin-bottom: 25px; line-height: 1.6;">
-            <strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Enter Ashen Town: Purgatory</strong>
-            Where ancient myths collide with visceral survival horror.
-        </p>
-
-        <p style="margin-bottom: 25px; line-height: 1.6;">
-            <strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">The Mission</strong>
-            Play as <strong>Reika</strong>, a bio-terrorism operative thrust into a high-stakes investigation.
-        </p>
-
-        <p style="line-height: 1.6;">
-            <strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Experience the Terror</strong>
-            Brace yourself for breathtaking action and heart-stopping terror as you unravel the dark secrets of a town lost to history.
-        </p>
-    </div>
+    <h1 id="h-about">ABOUT</h1>
+    <div id="content-about" style="max-width: 800px;"></div>
 </section>
 
 <section id="story">
-    <h1>STORY</h1>
-    
-    <div style="max-width: 800px;">
-        <p style="margin-bottom: 25px; line-height: 1.6;">
-            <strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">A Silence That Screams</strong>
-            A series of chilling disappearances has plagued the remote town of Kisaragi, Japan. Yet, a suffocating silence hangs over the media and local authorities—no reports, no warnings, no traces. The truth only begins to surface when a veteran police officer and his young son visit the town for a peaceful vacation, only for the boy to vanish into thin air.
-        </p>
-
-        <p style="margin-bottom: 25px; line-height: 1.6;">
-            <strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">The Descent into Darkness</strong>
-            Driven by duty and personal ties, <strong>Reika</strong>, an elite bio-terrorism operative and colleague of the officer, arrives to investigate. What she discovers is far more sinister than a simple kidnapping. Kisaragi is a place where modern bio-threats merge with forbidden ancient rituals and spreading occultism.
-        </p>
-
-        <p style="line-height: 1.6;">
-            <strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Face the Nightmare</strong>
-            As Reika, you must navigate a web of terrifying conspiracies to rescue the child and expose the darkness before it consumes the world. Will you solve the mystery and survive the haunting secrets of this forgotten town, or will you become just another shadow in the mist?
-        </p>
-    </div>
+    <h1 id="h-story">STORY</h1>
+    <div id="content-story" style="max-width: 800px;"></div>
 </section>
 
 <section id="characters" style="align-items: center;">
-    <h1>CHARACTERS</h1>
-    <div class="char-row">
-        <div class="char-card" onclick="openCharacter(
-            'Character_01.jpg',
-            'REIKA',
-            'A high-ranking bio-terrorism operative specializing in field analysis and infiltration. She enters Kisaragi town with a classified personal objective.',
-            'Rank: Senior Agent | Blood: AB- | Height: 170cm | Weight: 55kg | Eyes: Hazel | Hair: Raven Black',
-            'Pistol Mastery, Data Decryption, Krav Maga'
-        )">
-            <img src="Character_01.jpg">
+    <h1 id="h-chars">CHARACTERS</h1>
+    <div class="char-row" id="char-list">
         </div>
-
-        <div class="char-card" onclick="openCharacter(
-            'Character_02.jpg',
-            'UNKNOWN',
-            'Personnel data encrypted. Classified as S-Rank threat. Avoid direct contact at all costs.',
-            'Rank: ??? | Blood: ??? | Height: ??? | Weight: ??? | Eyes: ??? | Hair: ???',
-            'Stealth, Assassination'
-        )">
-            <img src="Character_02.jpg">
-        </div>
-
-        <div class="char-card" onclick="openCharacter(
-            'Character_03.jpg',
-            'INFECTED',
-            'Biological specimen showing extreme mutations. No human consciousness remains.',
-            'Rank: N/A | Blood: Infected | Height: 190cm | Weight: 120kg | Eyes: Blood Red | Hair: None',
-            'Acid Spit, Rapid Regeneration'
-        )">
-            <img src="Character_03.jpg">
-        </div>
-    </div>
 </section>
 
 <section id="trailers" style="align-items: center;">
-    <h1>TRAILERS</h1>
+    <h1 id="h-trailers">TRAILERS</h1>
     <div class="video-container">
         <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
     </div>
 </section>
 
 <section id="contact" style="align-items: center;">
-    <h1>CONTACT</h1>
+    <h1 id="h-contact">CONTACT</h1>
     <p style="font-family: 'Special Elite'; font-size: 20px;">EMAIL: <a href="mailto:mikaindie1@gmail.com" style="color: var(--primary-red); text-decoration: none;">mikaindie1@gmail.com</a></p>
 </section>
 
@@ -344,7 +303,7 @@
         </div>
         <div class="popup-right">
             <div style="border-left: 4px solid var(--primary-red); padding-left: 20px;">
-                <span style="font-size: 12px; color: var(--primary-red); letter-spacing: 5px;">PERSONNEL FILE // TOP SECRET</span>
+                <span id="p-clearance" style="font-size: 12px; color: var(--primary-red); letter-spacing: 5px;">PERSONNEL FILE // TOP SECRET</span>
                 <h2 id="p-name" style="font-family: 'Orbitron'; font-size: 40px; color: #fff; margin: 10px 0;"></h2>
             </div>
             
@@ -352,16 +311,14 @@
                 <p id="p-desc"></p>
             </div>
 
-            <div class="stats-grid" id="p-stats">
-                </div>
+            <div class="stats-grid" id="p-stats"></div>
 
             <div>
-                <span style="font-family: 'Orbitron'; font-size: 11px; color: var(--primary-red); letter-spacing: 2px;">SPECIAL SKILLS</span>
-                <div class="skills-container" id="p-skills">
-                    </div>
+                <span id="p-skills-label" style="font-family: 'Orbitron'; font-size: 11px; color: var(--primary-red); letter-spacing: 2px;">SPECIAL SKILLS</span>
+                <div class="skills-container" id="p-skills"></div>
             </div>
 
-            <div style="margin-top: auto; padding-top: 30px; font-size: 10px; opacity: 0.3; font-family: 'Orbitron'; letter-spacing: 1px;">
+            <div id="p-footer" style="margin-top: auto; padding-top: 30px; font-size: 10px; opacity: 0.3; font-family: 'Orbitron'; letter-spacing: 1px;">
                 CLEARANCE LEVEL 4 REQUIRED // ASHEN TOWN PROTOCOL // STATUS: ACTIVE
             </div>
         </div>
@@ -369,55 +326,147 @@
 </div>
 
 <script>
-    // HIỆU ỨNG ĐÁNH MÁY (TYPEWRITER)
+    // --- DATABASE NGÔN NGỮ ---
+    const langData = {
+        en: {
+            nav: { top: "TOP", about: "ABOUT", story: "STORY", chars: "CHARACTERS", trailers: "TRAILERS", contact: "CONTACT" },
+            hero: { sub: "PURGATORY", protocol: "PROTOCOL: EARLY_ACCESS", deploy: "DEPLOYMENT: ??/??/2030", dl: "DOWNLOAD NOW", restrict: "* Access restricted to authorized personnel.", follow: "FOLLOW :" },
+            support: "SUPPORT ME",
+            sections: {
+                about: `
+                    <p style="margin-bottom: 25px; line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Enter Ashen Town: Purgatory</strong>Where ancient myths collide with visceral survival horror.</p>
+                    <p style="margin-bottom: 25px; line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">The Mission</strong>Play as <strong>Reika</strong>, a bio-terrorism operative thrust into a high-stakes investigation.</p>
+                    <p style="line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Experience the Terror</strong>Brace yourself for breathtaking action and heart-stopping terror as you unravel the dark secrets of a town lost to history.</p>`,
+                story: `
+                    <p style="margin-bottom: 25px; line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">A Silence That Screams</strong>A series of chilling disappearances has plagued the remote town of Kisaragi, Japan. Yet, a suffocating silence hangs over the media and local authorities...</p>
+                    <p style="margin-bottom: 25px; line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">The Descent into Darkness</strong>Driven by duty and personal ties, <strong>Reika</strong> arrives to investigate. What she discovers is far more sinister than a simple kidnapping.</p>
+                    <p style="line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Face the Nightmare</strong>Will you solve the mystery and survive the haunting secrets of this forgotten town, or will you become just another shadow in the mist?</p>`
+            },
+            chars: [
+                { img: 'Character_01.jpg', name: 'REIKA', desc: 'A high-ranking bio-terrorism operative specializing in field analysis and infiltration. She enters Kisaragi town with a classified personal objective.', stats: 'Rank: Senior Agent | Blood: AB- | Height: 170cm | Weight: 55kg | Eyes: Hazel | Hair: Raven Black', skills: 'Pistol Mastery, Data Decryption, Krav Maga' },
+                { img: 'Character_02.jpg', name: 'UNKNOWN', desc: 'Personnel data encrypted. Classified as S-Rank threat. Avoid direct contact at all costs.', stats: 'Rank: ??? | Blood: ??? | Height: ??? | Weight: ??? | Eyes: ??? | Hair: ???', skills: 'Stealth, Assassination' },
+                { img: 'Character_03.jpg', name: 'INFECTED', desc: 'Biological specimen showing extreme mutations. No human consciousness remains.', stats: 'Rank: N/A | Blood: Infected | Height: 190cm | Weight: 120kg | Eyes: Blood Red | Hair: None', skills: 'Acid Spit, Rapid Regeneration' }
+            ],
+            popup: { clearance: "PERSONNEL FILE // TOP SECRET", skills: "SPECIAL SKILLS", footer: "CLEARANCE LEVEL 4 REQUIRED // ASHEN TOWN PROTOCOL // STATUS: ACTIVE" }
+        },
+        vi: {
+            nav: { top: "TRÊN CÙNG", about: "GIỚI THIỆU", story: "CỐT TRUYỆN", chars: "NHÂN VẬT", trailers: "TRAILERS", contact: "LIÊN HỆ" },
+            hero: { sub: "LUÂN HỒI", protocol: "GIAO THỨC: TRUY CẬP SỚM", deploy: "TRIỂN KHAI: ??/??/2030", dl: "TẢI XUỐNG NGAY", restrict: "* Chỉ dành cho nhân sự được cấp phép.", follow: "THEO DÕI :" },
+            support: "ỦNG HỘ TÔI",
+            sections: {
+                about: `
+                    <p style="margin-bottom: 25px; line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Bước vào Ashen Town: Purgatory</strong>Nơi những truyền thuyết cổ xưa đối đầu với nỗi kinh hoàng sinh tồn rợn tóc gáy.</p>
+                    <p style="margin-bottom: 25px; line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Nhiệm vụ</strong>Hóa thân thành <strong>Reika</strong>, một đặc vụ chống khủng bối sinh học đang dấn thân vào một cuộc điều tra đầy hiểm nguy.</p>
+                    <p style="line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Trải nghiệm sự kinh hoàng</strong>Hãy chuẩn bị tinh thần cho những pha hành động nghẹt thở và nỗi sợ hãi tột độ khi bạn lật mở những bí mật đen tối của một thị trấn bị lãng quên.</p>`,
+                story: `
+                    <p style="margin-bottom: 25px; line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Sự im lặng đáng sợ</strong>Một loạt vụ mất tích bí ẩn đã ám ảnh thị trấn hẻo lánh Kisaragi, Nhật Bản. Tuy nhiên, một sự im lặng nghẹt thở bao trùm lên truyền thông và chính quyền địa phương...</p>
+                    <p style="margin-bottom: 25px; line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Hành trình vào bóng tối</strong>Thúc đẩy bởi trách nhiệm và các mối quan hệ cá nhân, <strong>Reika</strong> đến để điều tra. Những gì cô phát hiện ra còn thâm độc hơn nhiều so với một vụ bắt cóc đơn thuần.</p>
+                    <p style="line-height: 1.6;"><strong style="color:#fff; display:block; font-size:1.1em; margin-bottom:5px;">Đối mặt với ác mộng</strong>Liệu bạn có thể giải mã được bí ẩn và sống sót trước những bí mật kinh hoàng của thị trấn bị lãng quên này, hay sẽ trở thành một bóng ma khác trong sương mù?</p>`
+            },
+            chars: [
+                { img: 'Character_01.jpg', name: 'REIKA', desc: 'Đặc vụ cao cấp chống khủng bố sinh học, chuyên gia phân tích thực địa và xâm nhập. Cô đến Kisaragi với một mục tiêu cá nhân tuyệt mật.', stats: 'Hạng: Đặc vụ cấp cao | Nhóm máu: AB- | Chiều cao: 170cm | Cân nặng: 55kg | Mắt: Hazel | Tóc: Đen', skills: 'Bậc thầy súng ngắn, Giải mã dữ liệu, Krav Maga' },
+                { img: 'Character_02.jpg', name: 'ẨN DANH', desc: 'Dữ liệu nhân sự đã bị mã hóa. Được phân loại là mối đe dọa cấp S. Tránh tiếp xúc trực tiếp bằng mọi giá.', stats: 'Hạng: ??? | Nhóm máu: ??? | Chiều cao: ??? | Cân nặng: ??? | Mắt: ??? | Tóc: ???', skills: 'Ẩn nấp, Ám sát' },
+                { img: 'Character_03.jpg', name: 'VẬT CHỦ', desc: 'Mẫu vật sinh học cho thấy sự đột biến cực độ. Không còn ý thức con người.', stats: 'Hạng: N/A | Nhóm máu: Bị nhiễm | Chiều cao: 190cm | Cân nặng: 120kg | Mắt: Đỏ ngầu | Tóc: Không', skills: 'Phun Axit, Tái tạo siêu tốc' }
+            ],
+            popup: { clearance: "HỒ SƠ NHÂN SỰ // TỐI MẬT", skills: "KỸ NĂNG ĐẶC BIỆT", footer: "YÊU CẦU MỨC ĐỘ CẤP PHÉP 4 // GIAO THỨC ASHEN TOWN // TRẠNG THÁI: ĐANG HOẠT ĐỘNG" }
+        }
+    };
+
+    let currentLang = 'en';
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        document.documentElement.lang = lang;
+        const d = langData[lang];
+
+        // Update Nav
+        document.getElementById('nav-top').innerHTML = `${d.nav.top} <span class="nav-dot"></span>`;
+        document.getElementById('nav-about').innerHTML = `${d.nav.about} <span class="nav-dot"></span>`;
+        document.getElementById('nav-story').innerHTML = `${d.nav.story} <span class="nav-dot"></span>`;
+        document.getElementById('nav-chars').innerHTML = `${d.nav.chars} <span class="nav-dot"></span>`;
+        document.getElementById('nav-trailers').innerHTML = `${d.nav.trailers} <span class="nav-dot"></span>`;
+        document.getElementById('nav-contact').innerHTML = `${d.nav.contact} <span class="nav-dot"></span>`;
+
+        // Update Hero
+        document.getElementById('sub-logo').innerText = d.hero.sub;
+        document.getElementById('protocol-label').innerText = d.hero.protocol;
+        document.getElementById('deployment-label').innerText = d.hero.deploy;
+        document.getElementById('btn-dl-text').innerText = d.hero.dl;
+        document.getElementById('restriction-text').innerText = d.hero.restrict;
+        document.getElementById('follow-label').innerText = d.hero.follow;
+        document.getElementById('btn-support').innerHTML = `<i class="fa-solid fa-heart"></i> ${d.support}`;
+
+        // Update Sections
+        document.getElementById('h-about').innerText = d.nav.about;
+        document.getElementById('content-about').innerHTML = d.sections.about;
+        document.getElementById('h-story').innerText = d.nav.story;
+        document.getElementById('content-story').innerHTML = d.sections.story;
+        document.getElementById('h-chars').innerText = d.nav.chars;
+        document.getElementById('h-trailers').innerText = d.nav.trailers;
+        document.getElementById('h-contact').innerText = d.nav.contact;
+
+        // Update Characters List
+        const charList = document.getElementById('char-list');
+        charList.innerHTML = '';
+        d.chars.forEach((c, index) => {
+            charList.innerHTML += `
+                <div class="char-card" onclick="openCharacter(${index})">
+                    <img src="${c.img}">
+                </div>`;
+        });
+
+        // Toggle Active Button
+        document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+        document.getElementById('btn-vi').classList.toggle('active', lang === 'vi');
+    }
+
+    // --- POPUP & CHARACTER LOGIC ---
     let typeIndex = 0;
     let typeText = "";
     function typeWriter() {
         if (typeIndex < typeText.length) {
             document.getElementById("p-desc").innerHTML += typeText.charAt(typeIndex);
             typeIndex++;
-            setTimeout(typeWriter, 20); // Faster typing
+            setTimeout(typeWriter, 15);
         }
     }
 
-    function openCharacter(img, name, desc, statsStr, skillsStr) {
-        document.getElementById("popup").style.display = "block";
-        document.getElementById("p-img").src = img;
-        document.getElementById("p-name").innerText = name;
+    function openCharacter(index) {
+        const char = langData[currentLang].chars[index];
+        const popData = langData[currentLang].popup;
         
-        // Reset Typewriter
+        document.getElementById("popup").style.display = "block";
+        document.getElementById("p-img").src = char.img;
+        document.getElementById("p-name").innerText = char.name;
+        document.getElementById("p-clearance").innerText = popData.clearance;
+        document.getElementById("p-skills-label").innerText = popData.skills;
+        document.getElementById("p-footer").innerText = popData.footer;
+        
         document.getElementById("p-desc").innerText = "";
-        typeText = desc;
+        typeText = char.desc;
         typeIndex = 0;
         typeWriter();
 
-        // Process Stats (Rank: Value | Blood: Value...)
         const statsGrid = document.getElementById("p-stats");
         statsGrid.innerHTML = "";
-        const statsArray = statsStr.split('|');
-        statsArray.forEach(stat => {
+        char.stats.split('|').forEach(stat => {
             const [label, value] = stat.split(':');
-            if(label && value) {
-                statsGrid.innerHTML += `<div class="stat-item">${label.trim()} <span>${value.trim()}</span></div>`;
-            }
+            if(label && value) statsGrid.innerHTML += `<div class="stat-item">${label.trim()} <span>${value.trim()}</span></div>`;
         });
 
-        // Process Skills (Skill1, Skill2...)
         const skillsDiv = document.getElementById("p-skills");
         skillsDiv.innerHTML = "";
-        const skillsArray = skillsStr.split(',');
-        skillsArray.forEach(skill => {
-            if(skill.trim() !== "") {
-                skillsDiv.innerHTML += `<span class="skill-tag">${skill.trim()}</span>`;
-            }
+        char.skills.split(',').forEach(skill => {
+            if(skill.trim() !== "") skillsDiv.innerHTML += `<span class="skill-tag">${skill.trim()}</span>`;
         });
     }
 
-    function closePopup() {
-        document.getElementById("popup").style.display = "none";
-    }
+    function closePopup() { document.getElementById("popup").style.display = "none"; }
 
-    // HIỆU ỨNG SCROLL CHO BACKGROUND
+    // INITIALIZE
+    window.onload = () => { setLanguage('en'); };
+
+    // SCROLL EFFECT
     const bgImg = document.getElementById("bgImg");
     window.addEventListener("scroll", () => {
         let scroll = window.pageYOffset;
@@ -425,11 +474,7 @@
         bgImg.style.filter = scroll > 400 ? "brightness(0.5) contrast(1.1)" : "brightness(0.7) contrast(1.1)";
     });
 
-    // ĐÓNG POPUP
     window.addEventListener('keydown', (e) => { if (e.key === "Escape") closePopup(); });
-    window.addEventListener('click', (e) => {
-        if (e.target === document.getElementById("popup")) closePopup();
-    });
 </script>
 
 </body>
