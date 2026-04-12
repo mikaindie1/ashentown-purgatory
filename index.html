@@ -105,11 +105,46 @@
         .social-icons a { color: #fff; font-size: 20px; transition: 0.2s; margin-left: 15px;}
         .social-icons a:hover { color: var(--primary-red); text-shadow: var(--glow); }
 
+        /* NÚT SUPPORT ME */
         .support-me {
-            background: #fff; color: #000; padding: 12px 30px; text-decoration: none;
-            font-weight: 700; letter-spacing: 2px; border: 1px solid #fff; animation: support-pulse 2s infinite;
+            background: #fff; 
+            color: #000; 
+            padding: 12px 30px; 
+            text-decoration: none;
+            font-weight: 700; 
+            letter-spacing: 2px; 
+            border: 1px solid #fff; 
+            transition: 0.3s; /* Thêm transition để mượt mà khi hover */
+            animation: support-pulse 2s infinite;
+            display: inline-block;
         }
-        @keyframes support-pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); transform: scale(1); } 70% { box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0); transform: scale(1.05); } 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); transform: scale(1); } }
+
+        /* Hiệu ứng cho icon trái tim */
+        .support-me i { 
+            color: var(--primary-red); 
+            margin-right: 8px; 
+            transition: 0.3s; 
+        }
+
+        @keyframes support-pulse { 
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); transform: scale(1); } 
+            70% { box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0); transform: scale(1.05); } 
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); transform: scale(1); } 
+        }
+
+        /* KHI RÊ CHUỘT VÀO (HOVER) */
+        .support-me:hover { 
+            background: var(--primary-red); 
+            color: #fff; 
+            border-color: var(--primary-red); 
+            animation: none; /* Dừng hiệu ứng đập để người dùng dễ click */
+            transform: scale(1.1); 
+        }
+
+        /* ÉP TRÁI TIM ĐỔI SANG MÀU TRẮNG KHI HOVER */
+        .support-me:hover i { 
+            color: #fff; 
+        }
 
         /* SECTIONS */
         section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 100px 10%; position: relative; }
